@@ -44,6 +44,14 @@ jobs:
 | `repository` | The GitHub repository containing the issue or pr. | Current repository |
 | `token` | `GITHUB_TOKEN` or a `repo` scoped [PAT](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). | `GITHUB_TOKEN` |
 
+### Action outputs
+
+| Name | Description |
+| --- | --- | --- |
+| `deleted-comment` | If there was existing same comments or not that was deleted |
+| `deleted-comment-id` | The deleted comment ID | 
+| `comment-id` | The posted comment ID | 
+
 ### Accessing issues in other repositories
 
 You can close issues in another repository by using a [PAT](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token) instead of `GITHUB_TOKEN`.

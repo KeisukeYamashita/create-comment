@@ -43,8 +43,8 @@ export class Reposter {
           repo: this.repo,
           comment_id: comment.id
         })
-        core.setOutput('delete-comment-id', comment.id)
-        core.setOutput('delete-comment', true)
+        core.setOutput('deleted-comment-id', comment.id)
+        core.setOutput('deleted-comment', true)
         break
       }
     }
