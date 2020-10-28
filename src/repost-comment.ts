@@ -37,20 +37,20 @@ export class Reposter {
 
     for (const comment of comments) {
       if (comment.body === this.comment) {
-          await client.issues.deleteComment({
-              owner: this.owner,
-              repo: this.repo,
-              comment_id: comment.id
-          })
-          break
+        await client.issues.deleteComment({
+          owner: this.owner,
+          repo: this.repo,
+          comment_id: comment.id
+        })
+        break
       }
     }
 
     await client.issues.createComment({
-        owner: this.owner,
-        repo: this.repo,
-        issue_number: this.issueNumber,
-        body: this.comment
+      owner: this.owner,
+      repo: this.repo,
+      issue_number: this.issueNumber,
+      body: this.comment
     })
   }
 }
