@@ -1,3 +1,4 @@
+import * as core from '@actions/core'
 import * as github from '@actions/github'
 
 export interface Inputs {
@@ -42,16 +43,20 @@ export class Reposter {
           repo: this.repo,
           comment_id: comment.id
         })
+        core.setOutput('delete-comment-id', comment.id)
+        core.setOutput('delete-comment', true)
         break
       }
     }
 
-    await client.issues.createComment({
+    const {data: createCommentResponse } = await client.issues.createComment({
       owner: this.owner,
       repo: this.repo,
       issue_number: this.issueNumber,
       body: this.comment
     })
+
+    core.setOutput('comment-id', createCommentResponse.id)
   }
 }
 

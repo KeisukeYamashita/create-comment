@@ -22,8 +22,8 @@ jobs:
       - uses: ./
         with:
           issue-number: ${{ github.event.number }}
-          comment: hello old
+          comment: hello
       - uses: ./
         with:
           issue-number: ${{ github.event.number }}
-          comment: hello new
+          comment: hello
