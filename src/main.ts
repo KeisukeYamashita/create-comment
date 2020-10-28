@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github';
+import { inspect } from 'util';
 import {Inputs, Reposter} from './repost-comment'
 
 async function run(): Promise<void> {
@@ -11,6 +12,8 @@ async function run(): Promise<void> {
       repository: core.getInput('repository'),
       token: core.getInput('token')
     }
+
+    core.debug(`Inputs: ${inspect(inputs)}`)
 
     const reposter = new Reposter(inputs)
     await reposter.repostComment()
