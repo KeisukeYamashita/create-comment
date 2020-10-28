@@ -37,6 +37,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__webpack_require__(186));
+const github = __importStar(__webpack_require__(438));
+const util_1 = __webpack_require__(669);
 const repost_comment_1 = __webpack_require__(541);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -44,10 +46,11 @@ function run() {
             const inputs = {
                 checkOnlyFirstLine: core.getInput('check-only-first-line') === 'true',
                 comment: core.getInput('comment'),
-                number: Number(core.getInput('number')),
+                number: core.getInput('number') === '' ? github.context.issue.number : Number(core.getInput('number')),
                 repository: core.getInput('repository'),
                 token: core.getInput('token')
             };
+            core.debug(`Inputs: ${util_1.inspect(inputs)}`);
             const reposter = new repost_comment_1.Reposter(inputs);
             yield reposter.repostComment();
         }
