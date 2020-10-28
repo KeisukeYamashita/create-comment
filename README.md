@@ -17,7 +17,7 @@ This action extract the number from an issue or a pull request which has trigger
           comment: Comment for Issue or GitHub Pull Request
 ```
 
-### Close issues where the title does not match a specified prefix
+### Post a comment and close the previous same comment
 
 This is just an example to show one way in which this action can be used.
 
