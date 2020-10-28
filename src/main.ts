@@ -1,16 +1,18 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import {Inputs, Reposter} from './repost-comment'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
+    const inputs: Inputs = {
+      checkOnlyFirstLine: core.getInput('check-only-first-line') === 'true',
+      comment: core.getInput('comment'),
+      issueNumber: Number(core.getInput('issue-number')),
+      repository: core.getInput('repository'),
+      token: core.getInput('token')
+    }
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    const reposter = new Reposter(inputs)
+    await reposter.repostComment()
   } catch (error) {
     core.setFailed(error.message)
   }
