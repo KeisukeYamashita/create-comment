@@ -121,32 +121,34 @@ class Reposter {
                 repo: this.repo,
                 issue_number: this.number
             });
-            for (const comment of comments) {
-                if (this.checkOnlyFirstLine) {
-                    const oldFirstLine = comment.body.split("\n")[0];
-                    const newFirstLine = comment.body.split("\n")[0];
-                    if (oldFirstLine === newFirstLine) {
+            if (this.unique) {
+                for (const comment of comments) {
+                    if (this.checkOnlyFirstLine) {
+                        const oldFirstLine = comment.body.split("\n")[0];
+                        const newFirstLine = comment.body.split("\n")[0];
+                        if (oldFirstLine === newFirstLine) {
+                            yield client.issues.deleteComment({
+                                owner: this.owner,
+                                repo: this.repo,
+                                comment_id: comment.id
+                            });
+                            core.setOutput('match-first-line', true);
+                            core.setOutput('deleted-comment-id', comment.id);
+                            core.setOutput('deleted-comment', true);
+                            break;
+                        }
+                    }
+                    if (comment.body === this.comment) {
                         yield client.issues.deleteComment({
                             owner: this.owner,
                             repo: this.repo,
                             comment_id: comment.id
                         });
-                        core.setOutput('match-first-line', true);
+                        core.setOutput('match-first-line', false);
                         core.setOutput('deleted-comment-id', comment.id);
                         core.setOutput('deleted-comment', true);
                         break;
                     }
-                }
-                if (comment.body === this.comment) {
-                    yield client.issues.deleteComment({
-                        owner: this.owner,
-                        repo: this.repo,
-                        comment_id: comment.id
-                    });
-                    core.setOutput('match-first-line', false);
-                    core.setOutput('deleted-comment-id', comment.id);
-                    core.setOutput('deleted-comment', true);
-                    break;
                 }
             }
             const { data: createCommentResponse } = yield client.issues.createComment({
