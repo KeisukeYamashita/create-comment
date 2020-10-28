@@ -22,7 +22,7 @@ This action extract the number from an issue or a pull request which has trigger
 This is just an example to show one way in which this action can be used.
 
 ```yml
-on: push
+on: pull_request
 jobs:
   commit-message-check:
     runs-on: ubuntu-latest
