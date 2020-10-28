@@ -49,7 +49,7 @@ jobs:
 ### Action outputs
 
 | Name | Description |
-| --- | --- | --- |
+| --- | --- |
 | `deleted-comment` | If there was existing same comments or not that was deleted |
 | `deleted-comment-id` | The deleted comment ID | 
 | `comment-id` | The posted comment ID | 
