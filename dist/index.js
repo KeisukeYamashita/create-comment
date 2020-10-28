@@ -46,6 +46,7 @@ function run() {
             const inputs = {
                 checkOnlyFirstLine: core.getInput('check-only-first-line') === 'true',
                 comment: core.getInput('comment'),
+                unique: core.getInput('unique') === 'true',
                 number: core.getInput('number') === '' ? github.context.issue.number : Number(core.getInput('number')),
                 repository: core.getInput('repository'),
                 token: core.getInput('token')
@@ -106,6 +107,7 @@ class Reposter {
         this.checkOnlyFirstLine = inputs.checkOnlyFirstLine;
         this.number = inputs.number;
         this.comment = inputs.comment;
+        this.unique = inputs.unique;
         const [owner, repo] = inputs.repository.split('/');
         this.owner = owner;
         this.repo = repo;
