@@ -11,7 +11,7 @@ This action extract the number from an issue or a pull request which has trigger
 
 ```yml
       - name: Repost Comment
-        uses: KeisukeYamashita/repost-comment@v1
+        uses: KeisukeYamashita/create-comment@v1
         with:
           number: 1
           comment: Comment for Issue or GitHub Pull Request
@@ -27,9 +27,8 @@ jobs:
   commit-message-check:
     runs-on: ubuntu-latest
     steps:
-      - if: startsWith(github.event.issue.title, 'ABC-') != 'true'
-        name: Close Issue
-        uses: peter-evans/close-issue@v1
+      - name: Post comment
+        uses: KeisukeYamashita/create-comment@v1
         with:
           comment: |
             Issue title must start with 'ABC-'.
@@ -40,8 +39,9 @@ jobs:
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `check-only-first-line` | If `true`, If the first line is same, it is considered to be the same post. | `false` |  
+| `check-only-first-line` | If `true`, If the first line is same, it is considered to be the same post. It works when `unique` is `true`. | `false` |  
 | `comment` | Comment to post. | - (Required) |
+| `unique` | If `true`, existing comment with same body will be deleted. | `true` |
 | `number` | The number of the issue to post. | `github.event.issue.number` |
 | `repository` | The GitHub repository containing the issue or pr. | Current repository |
 | `token` | `GITHUB_TOKEN` or a `repo` scoped [PAT](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). | `GITHUB_TOKEN` |

@@ -4,6 +4,7 @@ import * as github from '@actions/github'
 export interface Inputs {
   checkOnlyFirstLine: boolean
   comment: string
+  unique: boolean
   number: number
   repository: string
   token: string
@@ -12,6 +13,7 @@ export interface Inputs {
 export class Reposter {
   private checkOnlyFirstLine: boolean
   private comment: string
+  private unique: boolean
   private number: number
   private owner: string
   private repo: string
@@ -21,6 +23,7 @@ export class Reposter {
     this.checkOnlyFirstLine = inputs.checkOnlyFirstLine
     this.number = inputs.number
     this.comment = inputs.comment
+    this.unique = inputs.unique
 
     const [owner, repo] = inputs.repository.split('/')
     this.owner = owner

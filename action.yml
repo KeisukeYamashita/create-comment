@@ -1,4 +1,4 @@
-name: 'repost-comment'
+name: 'create-comment'
 description: 'A GitHub Action that post comment on a GitHub Issue or Pull Request'
 author: 'KeisukeYamashita'
 inputs:
@@ -9,6 +9,10 @@ inputs:
   comment:
     required: true
     description: 'Comment to post'
+  unique:
+    required: false
+    description: 'Delete existing comment with same body or not'
+    default: 'true'
   number:
     required: false
     description: 'The number of the issue or pr to post'
