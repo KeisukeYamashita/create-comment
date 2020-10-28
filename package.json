@@ -5,7 +5,7 @@
   "description": "A GitHub Action that post comment on a GitHub Issue or Pull Request",
   "main": "lib/main.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc  && ncc build",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
     "lint": "eslint src/**/*.ts",
