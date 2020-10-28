@@ -1,4 +1,5 @@
 import * as core from '@actions/core'
+import * as github from '@actions/github';
 import {Inputs, Reposter} from './repost-comment'
 
 async function run(): Promise<void> {
@@ -6,7 +7,7 @@ async function run(): Promise<void> {
     const inputs: Inputs = {
       checkOnlyFirstLine: core.getInput('check-only-first-line') === 'true',
       comment: core.getInput('comment'),
-      issueNumber: Number(core.getInput('issue-number')),
+      number: core.getInput('number') === '' ? github.context.issue.number : Number(core.getInput('number')),
       repository: core.getInput('repository'),
       token: core.getInput('token')
     }

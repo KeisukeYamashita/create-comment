@@ -44,7 +44,7 @@ function run() {
             const inputs = {
                 checkOnlyFirstLine: core.getInput('check-only-first-line') === 'true',
                 comment: core.getInput('comment'),
-                issueNumber: Number(core.getInput('issue-number')),
+                number: Number(core.getInput('number')),
                 repository: core.getInput('repository'),
                 token: core.getInput('token')
             };
@@ -101,7 +101,7 @@ const github = __importStar(__webpack_require__(438));
 class Reposter {
     constructor(inputs) {
         this.checkOnlyFirstLine = inputs.checkOnlyFirstLine;
-        this.issueNumber = inputs.issueNumber;
+        this.number = inputs.number;
         this.comment = inputs.comment;
         const [owner, repo] = inputs.repository.split('/');
         this.owner = owner;
@@ -114,7 +114,7 @@ class Reposter {
             const { data: comments } = yield client.issues.listComments({
                 owner: this.owner,
                 repo: this.repo,
-                issue_number: this.issueNumber
+                issue_number: this.number
             });
             for (const comment of comments) {
                 if (this.checkOnlyFirstLine) {
@@ -147,7 +147,7 @@ class Reposter {
             const { data: createCommentResponse } = yield client.issues.createComment({
                 owner: this.owner,
                 repo: this.repo,
-                issue_number: this.issueNumber,
+                issue_number: this.number,
                 body: this.comment
             });
             core.setOutput('comment-id', createCommentResponse.id);

@@ -9,7 +9,7 @@ inputs:
   comment:
     required: true
     description: 'Comment to post'
-  issue-number:
+  number:
     required: false
     description: 'The number of the issue or pr to post'
   repository:

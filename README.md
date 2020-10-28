@@ -5,13 +5,15 @@
 A GitHub Action that post comment on a GitHub Issue or Pull Request.
 If the same content is posted before, this action will delete the existing one and post a new one.
 
+This action extract the number from an issue or a pull request which has triggered this by default. You don't need to specify the issue number by `${{ github.event.issue.number }}` or `${{ github.event.pull_request.number }}` if you want to post to its issue or pull request.
+
 ## Usage
 
 ```yml
       - name: Repost Comment
         uses: KeisukeYamashita/repost-comment@v1
         with:
-          issue-number: 1
+          number: 1
           comment: Comment for Issue or GitHub Pull Request
 ```
 
@@ -40,7 +42,7 @@ jobs:
 | --- | --- | --- |
 | `check-only-first-line` | If `true`, If the first line is same, it is considered to be the same post. | `false` |  
 | `comment` | Comment to post. | - (Required) |
-| `issue-number` | The number of the issue to post. | `github.event.issue.number` |
+| `number` | The number of the issue to post. | `github.event.issue.number` |
 | `repository` | The GitHub repository containing the issue or pr. | Current repository |
 | `token` | `GITHUB_TOKEN` or a `repo` scoped [PAT](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). | `GITHUB_TOKEN` |
 

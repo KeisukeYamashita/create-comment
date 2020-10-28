@@ -4,7 +4,7 @@ import * as github from '@actions/github'
 export interface Inputs {
   checkOnlyFirstLine: boolean
   comment: string
-  issueNumber: number
+  number: number
   repository: string
   token: string
 }
@@ -12,14 +12,14 @@ export interface Inputs {
 export class Reposter {
   private checkOnlyFirstLine: boolean
   private comment: string
-  private issueNumber: number
+  private number: number
   private owner: string
   private repo: string
   private token: string
 
   constructor(inputs: Inputs) {
     this.checkOnlyFirstLine = inputs.checkOnlyFirstLine
-    this.issueNumber = inputs.issueNumber
+    this.number = inputs.number
     this.comment = inputs.comment
 
     const [owner, repo] = inputs.repository.split('/')
@@ -33,7 +33,7 @@ export class Reposter {
     const {data: comments} = await client.issues.listComments({
       owner: this.owner,
       repo: this.repo,
-      issue_number: this.issueNumber
+      issue_number: this.number
     })
 
 
@@ -72,7 +72,7 @@ export class Reposter {
     const {data: createCommentResponse } = await client.issues.createComment({
       owner: this.owner,
       repo: this.repo,
-      issue_number: this.issueNumber,
+      issue_number: this.number,
       body: this.comment
     })
 
