@@ -38,7 +38,7 @@ jobs:
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `check-only-firstline` | If `true`, If the first line is same, it is considered to be the same post. | `false` |  
+| `check-only-first-line` | If `true`, If the first line is same, it is considered to be the same post. | `false` |  
 | `comment` | Comment to post. | - (Required) |
 | `issue-number` | The number of the issue to post. | `github.event.issue.number` |
 | `repository` | The GitHub repository containing the issue or pr. | Current repository |
@@ -51,6 +51,7 @@ jobs:
 | `deleted-comment` | If there was existing same comments or not that was deleted |
 | `deleted-comment-id` | The deleted comment ID | 
 | `comment-id` | The posted comment ID | 
+| `match-first-line` | If match first line or not | 
 
 ### Accessing issues in other repositories
 

@@ -2,7 +2,7 @@ import * as core from '@actions/core'
 import * as github from '@actions/github'
 
 export interface Inputs {
-  checkOnlyFirstline: boolean
+  checkOnlyFirstLine: boolean
   comment: string
   issueNumber: number
   repository: string
@@ -18,7 +18,7 @@ export class Reposter {
   private token: string
 
   constructor(inputs: Inputs) {
-    this.checkOnlyFirstLine = inputs.checkOnlyFirstline
+    this.checkOnlyFirstLine = inputs.checkOnlyFirstLine
     this.issueNumber = inputs.issueNumber
     this.comment = inputs.comment
 
@@ -36,13 +36,33 @@ export class Reposter {
       issue_number: this.issueNumber
     })
 
+
     for (const comment of comments) {
+      if (this.checkOnlyFirstLine) {
+        const oldFirstLine = comment.body.split("\n")[0]
+        const newFirstLine = comment.body.split("\n")[0]
+        if (oldFirstLine === newFirstLine) {
+          await client.issues.deleteComment({
+            owner: this.owner,
+            repo: this.repo,
+            comment_id: comment.id
+          })
+
+          core.setOutput('match-first-line', true)
+          core.setOutput('deleted-comment-id', comment.id)
+          core.setOutput('deleted-comment', true)
+          break
+        }
+      }
+
       if (comment.body === this.comment) {
         await client.issues.deleteComment({
           owner: this.owner,
           repo: this.repo,
           comment_id: comment.id
         })
+
+        core.setOutput('match-first-line', false)
         core.setOutput('deleted-comment-id', comment.id)
         core.setOutput('deleted-comment', true)
         break

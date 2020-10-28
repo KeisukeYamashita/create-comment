@@ -2,7 +2,7 @@ name: 'repost-comment'
 description: 'A GitHub Action that post comment on a GitHub Issue or Pull Request'
 author: 'KeisukeYamashita'
 inputs:
-  check-only-firstline:
+  check-only-first-line:
     required: false
     description: 'If the first line is same, it is considered to be the same post'
     default: 'false'

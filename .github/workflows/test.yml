@@ -27,3 +27,19 @@ jobs:
         with:
           issue-number: ${{ github.event.number }}
           comment: hello
+  test-multi-line-comment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          issue-number: ${{ github.event.number }}
+          comment: |
+            ## What
+            Hello.
+      - uses: ./
+        with:
+          issue-number: ${{ github.event.number }}
+          comment: |
+            ## What
+            Hello.

@@ -4,7 +4,7 @@ import {Inputs, Reposter} from './repost-comment'
 async function run(): Promise<void> {
   try {
     const inputs: Inputs = {
-      checkOnlyFirstline: core.getInput('checkOnlyFirstline') === 'true',
+      checkOnlyFirstLine: core.getInput('check-only-first-line') === 'true',
       comment: core.getInput('comment'),
       issueNumber: Number(core.getInput('issue-number')),
       repository: core.getInput('repository'),
