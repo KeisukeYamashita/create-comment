@@ -1,4 +1,4 @@
-require('./sourcemap-register.js');module.exports =
+module.exports =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -42,7 +42,7 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const inputs = {
-                checkOnlyFirstline: core.getInput('checkOnlyFirstline') === 'true',
+                checkOnlyFirstLine: core.getInput('check-only-first-line') === 'true',
                 comment: core.getInput('comment'),
                 issueNumber: Number(core.getInput('issue-number')),
                 repository: core.getInput('repository'),
@@ -96,10 +96,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Reposter = void 0;
+const core = __importStar(__webpack_require__(186));
 const github = __importStar(__webpack_require__(438));
 class Reposter {
     constructor(inputs) {
-        this.checkOnlyFirstLine = inputs.checkOnlyFirstline;
+        this.checkOnlyFirstLine = inputs.checkOnlyFirstLine;
         this.issueNumber = inputs.issueNumber;
         this.comment = inputs.comment;
         const [owner, repo] = inputs.repository.split('/');
@@ -116,21 +117,40 @@ class Reposter {
                 issue_number: this.issueNumber
             });
             for (const comment of comments) {
+                if (this.checkOnlyFirstLine) {
+                    const oldFirstLine = comment.body.split("\n")[0];
+                    const newFirstLine = comment.body.split("\n")[0];
+                    if (oldFirstLine === newFirstLine) {
+                        yield client.issues.deleteComment({
+                            owner: this.owner,
+                            repo: this.repo,
+                            comment_id: comment.id
+                        });
+                        core.setOutput('match-first-line', true);
+                        core.setOutput('deleted-comment-id', comment.id);
+                        core.setOutput('deleted-comment', true);
+                        break;
+                    }
+                }
                 if (comment.body === this.comment) {
                     yield client.issues.deleteComment({
                         owner: this.owner,
                         repo: this.repo,
                         comment_id: comment.id
                     });
+                    core.setOutput('match-first-line', false);
+                    core.setOutput('deleted-comment-id', comment.id);
+                    core.setOutput('deleted-comment', true);
                     break;
                 }
             }
-            yield client.issues.createComment({
+            const { data: createCommentResponse } = yield client.issues.createComment({
                 owner: this.owner,
                 repo: this.repo,
                 issue_number: this.issueNumber,
                 body: this.comment
             });
+            core.setOutput('comment-id', createCommentResponse.id);
         });
     }
 }
@@ -6127,4 +6147,3 @@ module.exports = require("zlib");
 /******/ 	return __webpack_require__(109);
 /******/ })()
 ;
-//# sourceMappingURL=index.js.map
