@@ -1,11 +1,25 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'repost-comment'
+description: 'A GitHub Action that post comment on a GitHub Issue or Pull Request'
+author: 'KeisukeYamashita'
 inputs:
-  milliseconds: # change this
+  check-only-firstline:
+    required: false
+    description: 'If the first line is same, it is considered to be the same post'
+    default: 'false'
+  comment:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'Comment to post'
+  issue-number:
+    required: false
+    description: 'The number of the issue or pr to post'
+  repository:
+    required: false
+    description: 'The GitHub repository containing the issue or pr.'
+    default: ${{ github.repository }}
+  token:
+    required: false
+    description: 'Credential to access to the repo to post the comment'
+    default: ${{ github.token }}
 runs:
   using: 'node12'
   main: 'dist/index.js'

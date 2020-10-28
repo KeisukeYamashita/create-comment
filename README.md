@@ -38,11 +38,11 @@ jobs:
 
 | Name | Description | Default |
 | --- | --- | --- |
-| `token` | `GITHUB_TOKEN` or a `repo` scoped [PAT](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). | `GITHUB_TOKEN` |
-| `issue-number` | The number of the issue to close. | `github.event.issue.number` |
 | `check-only-firstline` | If `true`, If the first line is same, it is considered to be the same post. | `false` |  
-| `comment` | A comment to make on the issue before closing. | - (Required) |
-| `repository` | The GitHub repository containing the issue. | Current repository |
+| `comment` | Comment to post. | - (Required) |
+| `issue-number` | The number of the issue to post. | `github.event.issue.number` |
+| `repository` | The GitHub repository containing the issue or pr. | Current repository |
+| `token` | `GITHUB_TOKEN` or a `repo` scoped [PAT](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token). | `GITHUB_TOKEN` |
 
 ### Accessing issues in other repositories
 
