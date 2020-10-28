@@ -39,6 +39,7 @@ export class Reposter {
 
     for (const comment of comments) {
       if (this.checkOnlyFirstLine) {
+        core.debug(comment.body)
         const oldFirstLine = comment.body.split("\n")[0]
         const newFirstLine = comment.body.split("\n")[0]
         if (oldFirstLine === newFirstLine) {
