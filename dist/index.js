@@ -126,14 +126,14 @@ class Reposter {
                 for (const comment of comments) {
                     if (this.checkOnlyFirstLine) {
                         const oldFirstLine = comment.body.split("\n")[0];
-                        const newFirstLine = comment.body.split("\n")[0];
+                        const newFirstLine = this.comment.split("\n")[0];
                         if (oldFirstLine === newFirstLine) {
                             yield client.issues.deleteComment({
                                 owner: this.owner,
                                 repo: this.repo,
                                 comment_id: comment.id
                             });
-                            core.debug(`matched first line:${oldFirstLine} of comment:${comment.id}`);
+                            core.debug(`matched first oldline:"${oldFirstLine}" and newline:"${newFirstLine}" of comment:${comment.id}`);
                             core.setOutput('match-first-line', true);
                             core.setOutput('deleted-comment-id', comment.id);
                             core.setOutput('deleted-comment', true);
