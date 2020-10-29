@@ -1,5 +1,6 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
+import { inspect } from 'util'
 
 export interface Inputs {
   checkOnlyFirstLine: boolean
@@ -66,6 +67,7 @@ export class Reposter {
             comment_id: comment.id
           })
 
+          core.debug(`matched ${inspect(comment.body)} of comment:${comment.id}`)
           core.setOutput('match-first-line', false)
           core.setOutput('deleted-comment-id', comment.id)
           core.setOutput('deleted-comment', true)
