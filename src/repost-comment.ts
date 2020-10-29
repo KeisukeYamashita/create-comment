@@ -51,6 +51,7 @@ export class Reposter {
               comment_id: comment.id
             })
 
+            core.debug(`matched first line:${oldFirstLine} of comment:${comment.id}`)
             core.setOutput('match-first-line', true)
             core.setOutput('deleted-comment-id', comment.id)
             core.setOutput('deleted-comment', true)
