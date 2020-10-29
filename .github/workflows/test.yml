@@ -36,3 +36,9 @@ jobs:
           comment: |
             ## What
             Hello new.
+      - uses: ./
+        with:
+          check-only-first-line: true
+          comment: |
+            ## What No match
+            Hello.

@@ -102,6 +102,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Reposter = void 0;
 const core = __importStar(__webpack_require__(186));
 const github = __importStar(__webpack_require__(438));
+const util_1 = __webpack_require__(669);
 class Reposter {
     constructor(inputs) {
         this.checkOnlyFirstLine = inputs.checkOnlyFirstLine;
@@ -132,6 +133,7 @@ class Reposter {
                                 repo: this.repo,
                                 comment_id: comment.id
                             });
+                            core.debug(`matched first line:${oldFirstLine} of comment:${comment.id}`);
                             core.setOutput('match-first-line', true);
                             core.setOutput('deleted-comment-id', comment.id);
                             core.setOutput('deleted-comment', true);
@@ -144,6 +146,7 @@ class Reposter {
                             repo: this.repo,
                             comment_id: comment.id
                         });
+                        core.debug(`matched ${util_1.inspect(comment.body)} of comment:${comment.id}`);
                         core.setOutput('match-first-line', false);
                         core.setOutput('deleted-comment-id', comment.id);
                         core.setOutput('deleted-comment', true);

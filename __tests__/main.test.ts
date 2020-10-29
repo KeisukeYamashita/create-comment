@@ -5,7 +5,8 @@ let defaultInputs: Inputs = {
   number: 1,
   checkOnlyFirstLine: false,
   repository: 'KeisukeYamashita/repost-comment',
-  token: 'test-token'
+  token: 'test-token',
+  unique: true
 }
 
 test('dummy test', () => {
