@@ -44,7 +44,7 @@ export class Reposter {
       for (const comment of comments) {
         if (this.checkOnlyFirstLine) {
           const oldFirstLine = comment.body.split("\n")[0]
-          const newFirstLine = comment.body.split("\n")[0]
+          const newFirstLine = this.comment.split("\n")[0]
           if (oldFirstLine === newFirstLine) {
             await client.issues.deleteComment({
               owner: this.owner,
