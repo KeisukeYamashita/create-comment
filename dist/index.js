@@ -1,4 +1,4 @@
-module.exports =
+require('./sourcemap-register.js');module.exports =
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -45,11 +45,13 @@ function run() {
         try {
             const inputs = {
                 checkOnlyFirstLine: core.getInput('check-only-first-line') === 'true',
-                comment: core.getInput('comment'),
+                comment: core.getInput('comment', { required: true }),
                 unique: core.getInput('unique') === 'true',
-                number: core.getInput('number') === '' ? github.context.issue.number : Number(core.getInput('number')),
-                repository: core.getInput('repository'),
-                token: core.getInput('token')
+                number: core.getInput('number') === ''
+                    ? github.context.issue.number
+                    : Number(core.getInput('number')),
+                repository: core.getInput('repository', { required: true }),
+                token: core.getInput('token', { required: true })
             };
             core.debug(`Inputs: ${util_1.inspect(inputs)}`);
             const reposter = new repost_comment_1.Reposter(inputs);
@@ -125,8 +127,8 @@ class Reposter {
             if (this.unique) {
                 for (const comment of comments) {
                     if (this.checkOnlyFirstLine) {
-                        const oldFirstLine = comment.body.split("\n")[0];
-                        const newFirstLine = this.comment.split("\n")[0];
+                        const oldFirstLine = comment.body.split('\n')[0];
+                        const newFirstLine = this.comment.split('\n')[0];
                         if (oldFirstLine === newFirstLine) {
                             yield client.issues.deleteComment({
                                 owner: this.owner,
@@ -6157,3 +6159,4 @@ module.exports = require("zlib");
 /******/ 	return __webpack_require__(109);
 /******/ })()
 ;
+//# sourceMappingURL=index.js.map

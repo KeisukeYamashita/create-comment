@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 import * as github from '@actions/github'
-import { inspect } from 'util'
+import {inspect} from 'util'
 
 export interface Inputs {
   checkOnlyFirstLine: boolean
@@ -43,8 +43,8 @@ export class Reposter {
     if (this.unique) {
       for (const comment of comments) {
         if (this.checkOnlyFirstLine) {
-          const oldFirstLine = comment.body.split("\n")[0]
-          const newFirstLine = this.comment.split("\n")[0]
+          const oldFirstLine = comment.body.split('\n')[0]
+          const newFirstLine = this.comment.split('\n')[0]
           if (oldFirstLine === newFirstLine) {
             await client.issues.deleteComment({
               owner: this.owner,
@@ -52,7 +52,9 @@ export class Reposter {
               comment_id: comment.id
             })
 
-            core.debug(`matched first oldline:"${oldFirstLine}" and newline:"${newFirstLine}" of comment:${comment.id}`)
+            core.debug(
+              `matched first oldline:"${oldFirstLine}" and newline:"${newFirstLine}" of comment:${comment.id}`
+            )
             core.setOutput('match-first-line', true)
             core.setOutput('deleted-comment-id', comment.id)
             core.setOutput('deleted-comment', true)
@@ -67,7 +69,9 @@ export class Reposter {
             comment_id: comment.id
           })
 
-          core.debug(`matched ${inspect(comment.body)} of comment:${comment.id}`)
+          core.debug(
+            `matched ${inspect(comment.body)} of comment:${comment.id}`
+          )
           core.setOutput('match-first-line', false)
           core.setOutput('deleted-comment-id', comment.id)
           core.setOutput('deleted-comment', true)
@@ -76,7 +80,7 @@ export class Reposter {
       }
     }
 
-    const {data: createCommentResponse } = await client.issues.createComment({
+    const {data: createCommentResponse} = await client.issues.createComment({
       owner: this.owner,
       repo: this.repo,
       issue_number: this.number,
