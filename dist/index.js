@@ -47,7 +47,9 @@ function run() {
                 checkOnlyFirstLine: core.getInput('check-only-first-line') === 'true',
                 comment: core.getInput('comment', { required: true }),
                 unique: core.getInput('unique') === 'true',
-                number: core.getInput('number', { required: true }) === '' ? github.context.issue.number : Number(core.getInput('number')),
+                number: core.getInput('number') === ''
+                    ? github.context.issue.number
+                    : Number(core.getInput('number')),
                 repository: core.getInput('repository', { required: true }),
                 token: core.getInput('token', { required: true })
             };
@@ -125,8 +127,8 @@ class Reposter {
             if (this.unique) {
                 for (const comment of comments) {
                     if (this.checkOnlyFirstLine) {
-                        const oldFirstLine = comment.body.split("\n")[0];
-                        const newFirstLine = this.comment.split("\n")[0];
+                        const oldFirstLine = comment.body.split('\n')[0];
+                        const newFirstLine = this.comment.split('\n')[0];
                         if (oldFirstLine === newFirstLine) {
                             yield client.issues.deleteComment({
                                 owner: this.owner,

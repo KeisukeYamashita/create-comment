@@ -10,7 +10,7 @@ async function run(): Promise<void> {
       comment: core.getInput('comment', {required: true}),
       unique: core.getInput('unique') === 'true',
       number:
-        core.getInput('number', {required: true}) === ''
+        core.getInput('number') === ''
           ? github.context.issue.number
           : Number(core.getInput('number')),
       repository: core.getInput('repository', {required: true}),
